@@ -5,24 +5,26 @@ using UnityEngine;
 
 public class TruongPrefabs : TruongMonoBehaviour
 {
-    [SerializeField] protected string prefabsPath;
+    [SerializeField] private string prefabName;
+    [SerializeField] protected string prefabPath;
     [SerializeField] protected List<Transform> prefabs;
 
-    public void SetPrefabPath(string value)
+    public void SetPathWithPrefabName(string value)
     {
-        this.prefabsPath = value;
+        this.prefabName = value;
+        this.prefabPath = TruongPath.GetPrefabInResourcePath(this.prefabName);
         LoadPrefabsInResource();
     }
 
     private void LoadPrefabsInResource()
     {
-        prefabs = Resources.LoadAll<Transform>(prefabsPath).ToList();
+        prefabs = Resources.LoadAll<Transform>(prefabPath).ToList();
         CheckNull(prefabs);
     }
 
-    public Transform GetPrefabWithName(string prefabName)
+    public Transform GetPrefabWithName(string value)
     {
-        return prefabs.Find(p => p.name == prefabName);
+        return prefabs.Find(p => p.name == value);
     }
 
     public Transform GetDefaultPrefab()

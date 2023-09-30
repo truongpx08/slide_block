@@ -5,7 +5,7 @@ using UnityEngine;
 public class TruongExportPackage
 {
     [MenuItem("Truong/Export TruongCommon Package")]
-    static void Export()
+    private static void Export()
     {
         // Path to the folder containing the plugin
         string folderPath =

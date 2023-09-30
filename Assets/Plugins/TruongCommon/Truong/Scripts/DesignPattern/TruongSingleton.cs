@@ -12,7 +12,7 @@ public abstract class TruongSingleton<T> : TruongChild
 {
     public static T Instance { get; private set; }
 
-    [SerializeField] protected bool dontDestroyOnLoad;
+    [SerializeField] private bool dontDestroyOnLoad;
 
     protected override void Awake()
     {

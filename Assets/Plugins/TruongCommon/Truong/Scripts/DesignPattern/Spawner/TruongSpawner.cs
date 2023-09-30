@@ -27,7 +27,7 @@ public abstract class TruongSpawner : TruongChild
     {
         LoadPrefabs();
         LoadContainer();
-        SetPrefabPath();
+        SetPrefabNameInResource();
     }
 
     private void LoadContainer()
@@ -40,11 +40,11 @@ public abstract class TruongSpawner : TruongChild
         prefabs = GetComponentInChildren<TruongPrefabs>();
     }
 
-    protected abstract void SetPrefabPath();
+    protected abstract void SetPrefabNameInResource();
 
-    protected void SetPrefabPath(string path)
+    protected void SetPrefabNameInResource(string prefabName)
     {
-        prefabs.SetPrefabPath(path);
+        prefabs.SetPathWithPrefabName(prefabName);
     }
 
     [Button]
@@ -74,16 +74,6 @@ public abstract class TruongSpawner : TruongChild
     {
         holder.Items.ForEach(DespawnObject);
     }
-
-    [Button]
-    protected void DestroyAllObject()
-    {
-        for (int i = 0; i < Holder.transform.childCount; i++)
-        {
-            Destroy(Holder.transform.GetChild(i).gameObject);
-        }
-    }
-
 
     private Transform SpawnObjectWithPrefab(Transform prefab)
     {

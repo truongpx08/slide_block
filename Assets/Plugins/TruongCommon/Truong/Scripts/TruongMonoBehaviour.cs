@@ -9,17 +9,14 @@ using UnityEngine;
 /// </summary>
 public abstract class TruongMonoBehaviour : MonoBehaviour
 {
-    private bool hasDragged;
-
     /// <summary>
-    /// Auto load script component dragged into Inspector
+    /// Automatically set default values after code changes
     /// </summary>
     private void OnValidate()
     {
-        if (hasDragged) return;
-        hasDragged = true;
-        Debug.Log("Script component dragged into Inspector.");
-        CreateChildren();
+        if (!Application.isEditor || Application.isPlaying) return;
+        Debug.Log($"{gameObject.name} set default values after code changes ");
+        SetDefault();
     }
 
     protected virtual void Awake()
