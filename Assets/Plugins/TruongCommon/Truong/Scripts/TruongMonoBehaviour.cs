@@ -14,7 +14,7 @@ public abstract class TruongMonoBehaviour : MonoBehaviour
     /// </summary>
     private void OnValidate()
     {
-        if (!Application.isEditor || Application.isPlaying) return;
+        if (Application.isPlaying) return;
         Debug.Log($"{gameObject.name} set default values after code changes ");
         SetDefault();
     }

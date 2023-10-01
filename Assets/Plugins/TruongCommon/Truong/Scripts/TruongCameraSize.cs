@@ -33,7 +33,7 @@ public class TruongCameraSize : TruongMonoBehaviour
         UpdateSize();
     }
 
-    [Button]
+    // [Button]
     private void UpdateSize()
     {
         this.currentWidth = Screen.width;

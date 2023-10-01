@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using Sirenix.OdinInspector;
 using UnityEngine;
 
 public class PlayController : TruongSingleton<PlayController>
@@ -15,6 +16,7 @@ public class PlayController : TruongSingleton<PlayController>
         StartGame();
     }
 
+    [Button]
     private void StartGame()
     {
         PlayGameObjects.Instance.GoTiles.TilesSpawner.Spawn(5, 5);
