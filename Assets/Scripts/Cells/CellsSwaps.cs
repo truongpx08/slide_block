@@ -38,10 +38,10 @@ public class CellsSwaps : TruongMonoBehaviour
             case TruongDragDirection.None:
                 break;
             case TruongDragDirection.Top:
-                cellCanSwaps = cellsCanSwaps.Find(t => t.Data.row < this.EmptyCell.Data.row);
+                cellCanSwaps = cellsCanSwaps.Find(t => t.Data.row > this.EmptyCell.Data.row);
                 break;
             case TruongDragDirection.Bottom:
-                cellCanSwaps = cellsCanSwaps.Find(t => t.Data.row > this.EmptyCell.Data.row);
+                cellCanSwaps = cellsCanSwaps.Find(t => t.Data.row < this.EmptyCell.Data.row);
                 break;
             case TruongDragDirection.Left:
                 cellCanSwaps = cellsCanSwaps.Find(t => t.Data.column > this.EmptyCell.Data.column);

@@ -46,14 +46,13 @@ public class Cell : TruongMonoBehaviour
             originColumn = this.data.column,
             id = count,
         });
-        tile.SetDebug();
+        // tile.SetDebug();
         tile.SetName();
-        SetEmptyTile(tile);
+        tile.SetModel();
     }
 
     private void SetEmptyTile(Tile tile)
     {
-        if (tile.Data.originColumn != 2 || tile.Data.currentRow != 2) return;
         tile.SetEmpty();
     }
 
@@ -65,5 +64,10 @@ public class Cell : TruongMonoBehaviour
     public void SetName()
     {
         this.name = "Cell " + Data.column + " " + Data.row;
+    }
+
+    public void DisableDebug()
+    {
+        this.debugPos.gameObject.SetActive(false);
     }
 }

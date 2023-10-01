@@ -9,4 +9,9 @@ public abstract class TruongPath
     {
         return Path.Combine(TruongFolderName.PREFABS, name);
     }
+
+    public static string GetSpriteInResourcePath(string name)
+    {
+        return Path.Combine(TruongFolderName.SPRITES, name);
+    }
 }

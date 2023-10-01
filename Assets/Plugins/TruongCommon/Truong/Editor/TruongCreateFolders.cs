@@ -27,16 +27,17 @@ public class TruongCreateFolders : MonoBehaviour
             Log(item);
         });
 
-        CreatePrefabsInResources();
+        CreateFolderInResources(TruongFolderName.PREFABS);
+        CreateFolderInResources(TruongFolderName.SPRITES);
     }
 
-    private static void CreatePrefabsInResources()
+    private static void CreateFolderInResources(string folderName)
     {
         string resourcesPath = Path.Combine(TruongFolderName.ASSETS, TruongFolderName.RESOURCES);
-        string prefabFolderPath = Path.Combine(resourcesPath, TruongFolderName.PREFABS);
+        string prefabFolderPath = Path.Combine(resourcesPath, folderName);
         if (AssetDatabase.IsValidFolder(prefabFolderPath)) return;
-        AssetDatabase.CreateFolder(resourcesPath, TruongFolderName.PREFABS);
-        Log(TruongFolderName.PREFABS);
+        AssetDatabase.CreateFolder(resourcesPath, folderName);
+        Log(folderName);
     }
 
     private static bool HasFolder(string folderName)

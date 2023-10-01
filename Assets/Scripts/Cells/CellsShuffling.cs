@@ -14,7 +14,7 @@ public class CellsShuffling : TruongMonoBehaviour
     }
 
     [Button]
-    void Shuffle()
+    public void Shuffle()
     {
         for (int i = 0; i < this.amount; i++)
         {

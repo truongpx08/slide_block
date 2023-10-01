@@ -60,4 +60,15 @@ public class Tile : TruongMonoBehaviour
         thisTransform.parent = cell.TileSpawner.Holder.transform;
         thisTransform.localPosition = Vector3.zero;
     }
+
+    public void SetModel()
+    {
+        this.model.sprite = Cells.Instance.CellsSpawner.Sprites[this.Data.id];
+    }
+
+    public void DisableDebug()
+    {
+        this.debugCurPos.gameObject.SetActive(false);
+        this.debugOriPos.gameObject.SetActive(false);
+    }
 }

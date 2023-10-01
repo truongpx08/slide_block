@@ -20,5 +20,6 @@ public class PlayController : TruongSingleton<PlayController>
     private void StartGame()
     {
         PlayGameObjects.Instance.GoCells.CellsSpawner.Spawn(5, 5);
+        Cells.Instance.CellsShuffling.Shuffle();
     }
 }

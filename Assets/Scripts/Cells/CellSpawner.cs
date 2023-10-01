@@ -1,10 +1,14 @@
 using System.Collections;
 using System.Collections.Generic;
+using System.IO;
+using System.Linq;
 using Sirenix.OdinInspector;
 using UnityEngine;
 
 public class CellSpawner : TruongSpawner
 {
+    [SerializeField] private List<Sprite> sprites;
+    public List<Sprite> Sprites => sprites;
     [SerializeField] private int row;
     [SerializeField] private int column;
     [SerializeField] private float spacing;
@@ -15,6 +19,7 @@ public class CellSpawner : TruongSpawner
     {
         base.SetVarToDefault();
         this.spacing = 1.05f;
+        sprites = Resources.LoadAll<Sprite>(TruongPath.GetSpriteInResourcePath("char")).ToList();
     }
 
     protected override void SetPrefabNameInResource()
@@ -42,11 +47,11 @@ public class CellSpawner : TruongSpawner
                     row = r,
                     column = c,
                 });
-                cell.SetDebug();
+                // cell.SetDebug();
                 cell.AddTile(count);
                 cell.SetName();
                 SetEmptyCell(cell);
-                
+
                 count++;
             }
         }
@@ -55,8 +60,13 @@ public class CellSpawner : TruongSpawner
 
     private void SetEmptyCell(Cell cell)
     {
-        if (cell.Data.column != 2 || cell.Data.row != 2) return;
+        if (cell.Data.column != 0 || cell.Data.row != this.row - 1) return;
         Cells.Instance.CellsSwaps.SetEmptyCell(cell);
+
+        cell.DisableDebug();
+        var tile = cell.TileSpawner.Holder.GetDefaultOrFirstItem().GetComponent<Tile>();
+        tile.SetEmpty();
+        tile.DisableDebug();
     }
 
     private void InitVarToSetPosition()
@@ -69,7 +79,7 @@ public class CellSpawner : TruongSpawner
 
     private void SetPosition(Transform obj, int r, int c)
     {
-        obj.transform.position = new Vector3(c * spacing - left, r * spacing - top, 0);
+        obj.transform.position = new Vector3(c * spacing - left, r * -spacing + top, 0);
     }
 
     [Button]
