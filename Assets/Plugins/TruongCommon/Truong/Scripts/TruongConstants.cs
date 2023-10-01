@@ -4,7 +4,6 @@ using UnityEngine;
 
 public abstract class TruongConstants
 {
-
     //Spawner
     public const string PREFABS = "Prefabs";
     public const string HOLDER = "Holder";
@@ -24,6 +23,9 @@ public abstract class TruongConstants
     public const string BGM = "BGM";
     public const string SFX = "SFX";
     public const string AUDIO_CLIPS = "AudioClips";
+
+    //Object
+    public const string MODEL = "Model";
 }
 
 [System.Serializable]

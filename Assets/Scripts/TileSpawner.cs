@@ -43,6 +43,7 @@ public class TileSpawner : TruongSpawner
                     originRow = r,
                     originColumn = c,
                 });
+                tile.SetDebug();
                 obj.name = c.ToString() + " " + r.ToString();
 
                 SetEmptyTile(r, c, tile);
@@ -53,6 +54,7 @@ public class TileSpawner : TruongSpawner
     private void SetEmptyTile(int r, int c, Tile tile)
     {
         if (c != 2 || r != 2) return;
+        tile.SetEmpty();
         GetComponentInBro<TilesShuffle>().SetEmptyTile(tile);
     }
 
