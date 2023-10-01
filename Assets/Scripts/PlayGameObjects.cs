@@ -4,8 +4,8 @@ using UnityEngine;
 
 public class PlayGameObjects : TruongSingleton<PlayGameObjects>
 {
-    [SerializeField] private Tiles goTiles;
-    public Tiles GoTiles => goTiles;
+    [SerializeField] private Cells goCells;
+    public Cells GoCells => goCells;
 
     protected override void LoadComponents()
     {
@@ -15,7 +15,7 @@ public class PlayGameObjects : TruongSingleton<PlayGameObjects>
 
     private void LoadGoTiles()
     {
-        this.goTiles = GetComponentInChildren<Tiles>();
+        this.goCells = GetComponentInChildren<Cells>();
     }
 
     protected override void SetDontDestroyOnLoad()

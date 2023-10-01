@@ -249,10 +249,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c6f5c282c5cfd6a41960acd579d28e37, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  prefabName: Tile
-  prefabPath: Prefabs\Tile
+  prefabName: Cell
+  prefabPath: Prefabs\Cell
   prefabs:
-  - {fileID: 699573594190897517, guid: 9b98cfac8e8c78747849479f292555b4, type: 3}
+  - {fileID: 699573594190897517, guid: bbe824c184899cb45866135af91d93b5, type: 3}
 --- !u!1 &630664738
 GameObject:
   m_ObjectHideFlags: 0
@@ -264,7 +264,7 @@ GameObject:
   - component: {fileID: 630664739}
   - component: {fileID: 630664740}
   m_Layer: 0
-  m_Name: Movement
+  m_Name: Swaps
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -296,8 +296,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f9e8d78190b9e4c4192bd6cc60ab1bd6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  emptyTile: {fileID: 0}
-  tiles: {fileID: 1864222952}
+  emptyCell: {fileID: 0}
+  cells: {fileID: 1864222952}
 --- !u!1 &893586717
 GameObject:
   m_ObjectHideFlags: 0
@@ -405,7 +405,7 @@ GameObject:
   - component: {fileID: 1162014485}
   - component: {fileID: 1162014486}
   m_Layer: 0
-  m_Name: TilesShuffle
+  m_Name: Shuffling
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -437,6 +437,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 17983c2e8c8086049bf82eff3f2142f5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  amount: 1000
 --- !u!1 &1518918426
 GameObject:
   m_ObjectHideFlags: 0
@@ -519,7 +520,7 @@ GameObject:
   - component: {fileID: 1864222951}
   - component: {fileID: 1864222952}
   m_Layer: 0
-  m_Name: Tiles
+  m_Name: Cells
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -554,9 +555,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8261c5c0e2914eb47b3378598e80b0f6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  tilesSpawner: {fileID: 1059816404}
-  tilesSwaps: {fileID: 0}
-  tilesShuffle: {fileID: 1162014486}
+  dontDestroyOnLoad: 0
+  cellsSpawner: {fileID: 1059816404}
+  cellsSwaps: {fileID: 630664740}
+  cellsShuffling: {fileID: 1162014486}
 --- !u!1 &1875721452
 GameObject:
   m_ObjectHideFlags: 0
@@ -648,4 +650,4 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   dontDestroyOnLoad: 0
-  goTiles: {fileID: 1864222952}
+  goCells: {fileID: 1864222952}

@@ -37,4 +37,9 @@ public class TruongHolder : TruongGameObject
 
         return null;
     }
+
+    public Transform GetDefaultOrFirstItem()
+    {
+        return this.transform.GetChild(0);
+    }
 }

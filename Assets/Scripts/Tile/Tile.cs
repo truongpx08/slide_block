@@ -40,12 +40,24 @@ public class Tile : TruongMonoBehaviour
 
     public void SetDebug()
     {
-        this.debugOriPos.text = $"{this.Data.originColumn} {this.Data.originRow}";
-        this.debugCurPos.text = $"[{this.Data.currentColumn},{this.Data.currentRow}]";
+        this.debugOriPos.text = $"T {this.Data.originColumn} {this.Data.originRow}";
+        this.debugCurPos.text = $"{this.Data.id}";
     }
 
     public void SetEmpty()
     {
         this.model.gameObject.SetActive(false);
+    }
+
+    public void SetName()
+    {
+        this.name = "Tile " + data.currentColumn + " " + data.currentRow;
+    }
+
+    public void MoveToCell(Cell cell)
+    {
+        var thisTransform = this.transform;
+        thisTransform.parent = cell.TileSpawner.Holder.transform;
+        thisTransform.localPosition = Vector3.zero;
     }
 }

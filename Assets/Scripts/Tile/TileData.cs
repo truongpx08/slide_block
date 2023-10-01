@@ -5,4 +5,5 @@ public class TileData
     public int originColumn;
     public int currentRow;
     public int currentColumn;
+    public int id;
 }

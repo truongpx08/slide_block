@@ -19,6 +19,6 @@ public class PlayController : TruongSingleton<PlayController>
     [Button]
     private void StartGame()
     {
-        PlayGameObjects.Instance.GoTiles.TilesSpawner.Spawn(5, 5);
+        PlayGameObjects.Instance.GoCells.CellsSpawner.Spawn(5, 5);
     }
 }
