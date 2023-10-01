@@ -296,6 +296,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f9e8d78190b9e4c4192bd6cc60ab1bd6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  emptyTile: {fileID: 0}
   tiles: {fileID: 1864222952}
 --- !u!1 &893586717
 GameObject:
@@ -436,7 +437,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 17983c2e8c8086049bf82eff3f2142f5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  emptyTile: {fileID: 0}
 --- !u!1 &1518918426
 GameObject:
   m_ObjectHideFlags: 0
@@ -555,7 +555,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   tilesSpawner: {fileID: 1059816404}
-  tilesMovement: {fileID: 630664740}
+  tilesSwaps: {fileID: 0}
   tilesShuffle: {fileID: 1162014486}
 --- !u!1 &1875721452
 GameObject:

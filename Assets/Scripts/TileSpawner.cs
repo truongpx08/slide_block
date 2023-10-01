@@ -55,7 +55,7 @@ public class TileSpawner : TruongSpawner
     {
         if (c != 2 || r != 2) return;
         tile.SetEmpty();
-        GetComponentInBro<TilesShuffle>().SetEmptyTile(tile);
+        GetComponentInBro<TilesSwaps>().SetEmptyTile(tile);
     }
 
     private void InitVarToSetPosition()
@@ -72,9 +72,9 @@ public class TileSpawner : TruongSpawner
     }
 
     [Button]
-    public List<Tile> GetTilesCanMove()
+    public List<Tile> GetTilesCanSwaps()
     {
-        var emptyTile = GetComponentInBro<TilesShuffle>().EmptyTile;
+        var emptyTile = FindObjectOfType<TilesSwaps>().EmptyTile;
         List<Tile> tiles = new List<Tile>();
         this.Holder.Items.ForEach(i => tiles.Add(i.GetComponent<Tile>()));
         var tile1 = tiles.Find(t =>

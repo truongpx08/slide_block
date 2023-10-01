@@ -6,8 +6,8 @@ public class Tiles : TruongMonoBehaviour
 {
     [SerializeField] private TileSpawner tilesSpawner;
     public TileSpawner TilesSpawner => tilesSpawner;
-    [SerializeField] private TilesMovement tilesMovement;
-    public TilesMovement TilesMovement => tilesMovement;
+    [SerializeField] private TilesSwaps tilesSwaps;
+    public TilesSwaps TilesSwaps => tilesSwaps;
     [SerializeField] private TilesShuffle tilesShuffle;
     public TilesShuffle TilesShuffle => tilesShuffle;
 
@@ -26,7 +26,7 @@ public class Tiles : TruongMonoBehaviour
 
     private void LoadTileMovement()
     {
-        this.tilesMovement = GetComponentInChildren<TilesMovement>();
+        this.tilesSwaps = GetComponentInChildren<TilesSwaps>();
     }
 
     private void LoadTileSpawner()

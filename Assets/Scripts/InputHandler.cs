@@ -6,5 +6,6 @@ public class InputHandler : TruongDragAbstract
 {
     protected override void OnDirectionChanged(TruongDragDirection value)
     {
+        PlayGameObjects.Instance.GoTiles.TilesSwaps.CalculateTileCanSwaps(value);
     }
 }
