@@ -1,6 +1,7 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using Sirenix.OdinInspector;
 using UnityEngine;
 
 public class CellsSwaps : TruongMonoBehaviour
@@ -56,17 +57,18 @@ public class CellsSwaps : TruongMonoBehaviour
         Swaps(cellCanSwaps);
     }
 
+    [Button]
     public void Swaps(Cell cellCanSwaps)
     {
         if (cellCanSwaps == null) return;
         Debug.Log($"Swapping {cellCanSwaps.name} to {EmptyCell.name}");
-        var cell1 = cellCanSwaps.TileSpawner.Holder.GetDefaultOrFirstItem();
-        var cell2 = EmptyCell.TileSpawner.Holder.GetDefaultOrFirstItem();
 
-        cell1.GetComponent<Tile>().MoveToCell(EmptyCell);
-        cell2.GetComponent<Tile>().MoveToCell(cellCanSwaps);
+        cellCanSwaps.MoveTileToCell(EmptyCell);
+        this.EmptyCell.MoveTileToCell(cellCanSwaps);
 
-        cellCanSwaps.Data.isTileSwapped = true;
+        var tile = cellCanSwaps.Tile;
+        cellCanSwaps.SetTile(EmptyCell.Tile);
+        this.EmptyCell.SetTile(tile);
 
         SetEmptyCell(cellCanSwaps);
     }

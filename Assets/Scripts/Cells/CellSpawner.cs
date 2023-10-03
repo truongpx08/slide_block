@@ -15,6 +15,7 @@ public class CellSpawner : TruongSpawner
     [SerializeField] private float top;
     [SerializeField] private float left;
 
+
     protected override void SetVarToDefault()
     {
         base.SetVarToDefault();
@@ -62,8 +63,6 @@ public class CellSpawner : TruongSpawner
     {
         if (cell.Data.column != 0 || cell.Data.row != this.row - 1) return;
         Cells.Instance.CellsSwaps.SetEmptyCell(cell);
-
-        cell.DisableDebug();
         var tile = cell.TileSpawner.Holder.GetDefaultOrFirstItem().GetComponent<Tile>();
         tile.SetEmpty();
         tile.DisableDebug();
@@ -85,21 +84,35 @@ public class CellSpawner : TruongSpawner
     [Button]
     public List<Cell> GetCellsCanSwaps()
     {
-        var emptyCell = FindObjectOfType<CellsSwaps>().EmptyCell;
-        List<Cell> tiles = new List<Cell>();
-        this.Holder.Items.ForEach(i => tiles.Add(i.GetComponent<Cell>()));
-        var cell1 = tiles.Find(t =>
+        var emptyCell = Cells.Instance.CellsSwaps.EmptyCell;
+        List<Cell> cells = GetCells();
+        var cell1 = cells.Find(t =>
             t.Data.column == emptyCell.Data.column &&
             t.Data.row + 1 == emptyCell.Data.row);
-        var cell2 = tiles.Find(t =>
+        var cell2 = cells.Find(t =>
             t.Data.column == emptyCell.Data.column &&
             t.Data.row - 1 == emptyCell.Data.row);
-        var cell3 = tiles.Find(t =>
+        var cell3 = cells.Find(t =>
             t.Data.column + 1 == emptyCell.Data.column &&
             t.Data.row == emptyCell.Data.row);
-        var cell4 = tiles.Find(t =>
+        var cell4 = cells.Find(t =>
             t.Data.column - 1 == emptyCell.Data.column &&
             t.Data.row == emptyCell.Data.row);
         return new List<Cell> { cell2, cell1, cell3, cell4 };
+    }
+
+    public List<Cell> GetCells()
+    {
+        var tiles = new List<Cell>();
+        this.Holder.Items.ForEach(i => tiles.Add(i.GetComponent<Cell>()));
+        return tiles;
+    }
+
+
+    public Cell GetCell(int c, int r)
+    {
+        var cells = GetCells();
+        var cell = cells.Find(t => t.Data.column == c && t.Data.row == r);
+        return cell;
     }
 }

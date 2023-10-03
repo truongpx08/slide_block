@@ -40,6 +40,7 @@ public class TruongHolder : TruongGameObject
 
     public Transform GetDefaultOrFirstItem()
     {
+        if (this.transform.childCount == 0) return null; 
         return this.transform.GetChild(0);
     }
 }

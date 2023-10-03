@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using Sirenix.OdinInspector;
 using TMPro;
 using UnityEngine;
 
@@ -11,6 +12,9 @@ public class Cell : TruongMonoBehaviour
 
     [SerializeField] private CellData data;
     public CellData Data => data;
+
+    public Tile Tile => tile;
+    [SerializeField] private Tile tile;
 
     protected override void LoadComponents()
     {
@@ -37,8 +41,8 @@ public class Cell : TruongMonoBehaviour
     public void AddTile(int count)
     {
         var go = this.TileSpawner.SpawnDefaultObject();
-        var tile = go.GetComponent<Tile>();
-        tile.SetData(new TileData
+        var newTile = go.GetComponent<Tile>();
+        newTile.SetData(new TileData
         {
             currentRow = this.data.row,
             currentColumn = this.data.column,
@@ -47,14 +51,12 @@ public class Cell : TruongMonoBehaviour
             id = count,
         });
         // tile.SetDebug();
-        tile.SetName();
-        tile.SetModel();
+        newTile.SetName();
+        newTile.SetModel();
+
+        this.tile = newTile;
     }
 
-    private void SetEmptyTile(Tile tile)
-    {
-        tile.SetEmpty();
-    }
 
     public void SetDebug()
     {
@@ -66,8 +68,23 @@ public class Cell : TruongMonoBehaviour
         this.name = "Cell " + Data.column + " " + Data.row;
     }
 
-    public void DisableDebug()
+    private void SetEmptyTile(Tile t)
     {
-        this.debugPos.gameObject.SetActive(false);
+        t.SetEmpty();
+    }
+
+    public void SetTile(Tile value)
+    {
+        this.tile = value;
+    }
+
+    public void MoveTileToCell(Cell cell)
+    {
+        this.Tile.MoveToCell(cell);
+    }
+
+    public void SetTransformAfterShuffled()
+    {
+        this.Tile.SetParentToCell(this);
     }
 }

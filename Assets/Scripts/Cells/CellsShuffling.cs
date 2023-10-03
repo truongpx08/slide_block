@@ -6,6 +6,8 @@ using UnityEngine;
 public class CellsShuffling : TruongMonoBehaviour
 {
     [SerializeField] private int amount;
+    public bool IsShuffling => isShuffling;
+    [SerializeField] private bool isShuffling;
 
     protected override void SetVarToDefault()
     {
@@ -14,20 +16,36 @@ public class CellsShuffling : TruongMonoBehaviour
     }
 
     [Button]
-    public void Shuffle()
+    public void Shuffling()
     {
+        Shuffle();
+        SetTileTransformAfterShuffled();
+    }
+
+    [Button]
+    private void Shuffle()
+    {
+        this.isShuffling = true;
         for (int i = 0; i < this.amount; i++)
         {
             Cells.Instance.CellsSwaps.Swaps(GetCell());
         }
+
+        this.isShuffling = false;
     }
+
+    [Button]
+    private void SetTileTransformAfterShuffled()
+    {
+        var cells = Cells.Instance.CellsSpawner.GetCells();
+        cells.ForEach(c => c.SetTransformAfterShuffled());
+    }
+
 
     private Cell GetCell()
     {
         var cellsCanSwaps = Cells.Instance.CellsSpawner.GetCellsCanSwaps();
         cellsCanSwaps.RemoveAll(item => item == null);
-
-        var cell = cellsCanSwaps.Find(c => !c.Data.isTileSwapped);
-        return cell != null ? cell : cellsCanSwaps[Random.Range(0, cellsCanSwaps.Count - 1)];
+        return cellsCanSwaps[Random.Range(0, cellsCanSwaps.Count - 1)];
     }
 }
