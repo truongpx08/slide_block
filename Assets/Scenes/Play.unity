@@ -562,7 +562,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 17983c2e8c8086049bf82eff3f2142f5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  amount: 1000
+  isShuffling: 1
 --- !u!1 &1518918426
 GameObject:
   m_ObjectHideFlags: 0
@@ -607,7 +607,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b03f00f5748f8b3428b993def04cb5d7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  dragDirection: 0
+  direction: 0
 --- !u!61 &1518918429
 BoxCollider2D:
   m_ObjectHideFlags: 0

@@ -83,7 +83,7 @@ public class Cell : TruongMonoBehaviour
         this.Tile.MoveToCell(cell);
     }
 
-    public void SetTransformAfterShuffled()
+    public void SetTileTransformAfterShuffled()
     {
         this.Tile.SetParentToCell(this);
     }

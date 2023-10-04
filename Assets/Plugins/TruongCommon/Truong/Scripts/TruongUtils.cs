@@ -138,23 +138,6 @@ public abstract class TruongUtils
 
     #region Other
 
-    public static void Shuffle<T>(IList<T> list)
-    {
-        RNGCryptoServiceProvider provider = new RNGCryptoServiceProvider();
-        int n = list.Count;
-        while (n > 1)
-        {
-            byte[] box = new byte[1];
-            do provider.GetBytes(box);
-            while (!(box[0] < n * (Byte.MaxValue / n)));
-            int k = (box[0] % n);
-            n--;
-            T value = list[k];
-            list[k] = list[n];
-            list[n] = value;
-        }
-    }
-
     public static String ConvertToString(Enum eff)
     {
         return Enum.GetName(eff.GetType(), eff);
@@ -163,6 +146,16 @@ public abstract class TruongUtils
     public static EnumType ConvertToEnum<EnumType>(String enumValue)
     {
         return (EnumType)Enum.Parse(typeof(EnumType), enumValue);
+    }
+
+    public static void ShuffleList<T>(object objList)
+    {
+        var list = (List<T>)objList;
+        for (int i = 0; i < list.Count; i++)
+        {
+            int randomIndex = Random.Range(0, list.Count - 1);
+            (list[i], list[randomIndex]) = (list[randomIndex], list[i]);
+        }
     }
 
     #endregion

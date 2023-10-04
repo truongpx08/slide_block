@@ -28,33 +28,59 @@ public class CellsSwaps : TruongMonoBehaviour
         this.cells = GetComponentInParent<Cells>();
     }
 
-    public void Swapping(TruongDragDirection dragDirection)
+    public void SwapsWithInput(TruongDirection direction)
     {
-        var cellsCanSwaps = Cells.CellsSpawner.GetCellsCanSwaps();
-        cellsCanSwaps.RemoveAll(item => item == null);
-
-        Cell cellCanSwaps = null;
-        switch (dragDirection)
+        switch (direction)
         {
-            case TruongDragDirection.None:
+            case TruongDirection.None:
                 break;
-            case TruongDragDirection.Top:
-                cellCanSwaps = cellsCanSwaps.Find(t => t.Data.row > this.EmptyCell.Data.row);
+            case TruongDirection.Top:
+                SwapsToDirection(TruongDirection.Bottom);
                 break;
-            case TruongDragDirection.Bottom:
-                cellCanSwaps = cellsCanSwaps.Find(t => t.Data.row < this.EmptyCell.Data.row);
+            case TruongDirection.Bottom:
+                SwapsToDirection(TruongDirection.Top);
                 break;
-            case TruongDragDirection.Left:
-                cellCanSwaps = cellsCanSwaps.Find(t => t.Data.column > this.EmptyCell.Data.column);
+            case TruongDirection.Left:
+                SwapsToDirection(TruongDirection.Right);
                 break;
-            case TruongDragDirection.Right:
-                cellCanSwaps = cellsCanSwaps.Find(t => t.Data.column < this.EmptyCell.Data.column);
+            case TruongDirection.Right:
+                SwapsToDirection(TruongDirection.Left);
                 break;
             default:
-                throw new ArgumentOutOfRangeException(nameof(dragDirection), dragDirection, null);
+                throw new ArgumentOutOfRangeException(nameof(direction), direction, null);
+        }
+    }
+
+
+    [Button]
+    public void SwapsToDirection(TruongDirection direction)
+    {
+        Cell cell = null;
+        switch (direction)
+        {
+            case TruongDirection.None:
+                break;
+            case TruongDirection.Top:
+                cell = Cells.CellsSpawner.GetCells().Find(c =>
+                    c.Data.column == EmptyCell.Data.column && c.Data.row + 1 == EmptyCell.Data.row);
+                break;
+            case TruongDirection.Bottom:
+                cell = Cells.CellsSpawner.GetCells().Find(c =>
+                    c.Data.column == EmptyCell.Data.column && c.Data.row - 1 == EmptyCell.Data.row);
+                break;
+            case TruongDirection.Left:
+                cell = Cells.CellsSpawner.GetCells().Find(c =>
+                    c.Data.column + 1 == EmptyCell.Data.column && c.Data.row == EmptyCell.Data.row);
+                break;
+            case TruongDirection.Right:
+                cell = Cells.CellsSpawner.GetCells().Find(c =>
+                    c.Data.column - 1 == EmptyCell.Data.column && c.Data.row == EmptyCell.Data.row);
+                break;
+            default:
+                throw new ArgumentOutOfRangeException(nameof(direction), direction, null);
         }
 
-        Swaps(cellCanSwaps);
+        Swaps(cell);
     }
 
     [Button]
@@ -66,9 +92,9 @@ public class CellsSwaps : TruongMonoBehaviour
         cellCanSwaps.MoveTileToCell(EmptyCell);
         this.EmptyCell.MoveTileToCell(cellCanSwaps);
 
-        var tile = cellCanSwaps.Tile;
+        var temp = cellCanSwaps.Tile;
         cellCanSwaps.SetTile(EmptyCell.Tile);
-        this.EmptyCell.SetTile(tile);
+        this.EmptyCell.SetTile(temp);
 
         SetEmptyCell(cellCanSwaps);
     }

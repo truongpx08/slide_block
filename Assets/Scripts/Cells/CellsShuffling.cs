@@ -5,47 +5,60 @@ using UnityEngine;
 
 public class CellsShuffling : TruongMonoBehaviour
 {
-    [SerializeField] private int amount;
     public bool IsShuffling => isShuffling;
     [SerializeField] private bool isShuffling;
-
-    protected override void SetVarToDefault()
-    {
-        base.SetVarToDefault();
-        this.amount = 1000;
-    }
 
     [Button]
     public void Shuffling()
     {
         Shuffle();
-        SetTileTransformAfterShuffled();
+        SetTilesTransformAfterShuffled();
+    }
+
+    private void Shuffle()
+    {
+        for (int i = 0; i < 3; i++)
+        {
+            ShuffleAllCells();
+        }
     }
 
     [Button]
-    private void Shuffle()
+    private void ShuffleAllCells()
     {
         this.isShuffling = true;
-        for (int i = 0; i < this.amount; i++)
+
+        List<Cell> cells = Cells.Instance.CellsSpawner.GetCells();
+        TruongUtils.ShuffleList<Cell>(cells);
+
+        foreach (var cell in cells)
         {
-            Cells.Instance.CellsSwaps.Swaps(GetCell());
+            const int count = 100;
+            var emptyCell = Cells.Instance.CellsSwaps.EmptyCell.Data;
+            var swaps = Cells.Instance.CellsSwaps;
+
+            for (int i = 0; i < count; i++)
+            {
+                if (emptyCell.row < cell.Data.row)
+                    swaps.SwapsToDirection(TruongDirection.Bottom);
+                else if (emptyCell.row > cell.Data.row)
+                    swaps.SwapsToDirection(TruongDirection.Top);
+                else if (emptyCell.column > cell.Data.column)
+                    swaps.SwapsToDirection(TruongDirection.Left);
+                else if (emptyCell.column < cell.Data.column)
+                    swaps.SwapsToDirection(TruongDirection.Right);
+                if (Cells.Instance.CellsSwaps.EmptyCell == cell) break;
+            }
         }
 
         this.isShuffling = false;
     }
 
+
     [Button]
-    private void SetTileTransformAfterShuffled()
+    private void SetTilesTransformAfterShuffled()
     {
         var cells = Cells.Instance.CellsSpawner.GetCells();
-        cells.ForEach(c => c.SetTransformAfterShuffled());
-    }
-
-
-    private Cell GetCell()
-    {
-        var cellsCanSwaps = Cells.Instance.CellsSpawner.GetCellsCanSwaps();
-        cellsCanSwaps.RemoveAll(item => item == null);
-        return cellsCanSwaps[Random.Range(0, cellsCanSwaps.Count - 1)];
+        cells.ForEach(c => c.SetTileTransformAfterShuffled());
     }
 }

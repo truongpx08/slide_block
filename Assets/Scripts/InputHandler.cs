@@ -4,9 +4,9 @@ using UnityEngine;
 
 public class InputHandler : TruongDragAbstract
 {
-    protected override void OnDirectionChanged(TruongDragDirection value)
+    protected override void OnDirectionChanged(TruongDirection value)
     {
-        if (value == TruongDragDirection.None) return;
-        PlayGameObjects.Instance.GoCells.CellsSwaps.Swapping(value);
+        if (value == TruongDirection.None) return;
+        PlayGameObjects.Instance.GoCells.CellsSwaps.SwapsWithInput(value);
     }
 }
