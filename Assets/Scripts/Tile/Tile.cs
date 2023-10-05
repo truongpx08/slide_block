@@ -39,15 +39,9 @@ public class Tile : TruongMonoBehaviour
         this.data = value;
     }
 
-    private void SetDataOnMove(Cell cell)
-    {
-        this.data.currentColumn = cell.Tile.Data.currentColumn;
-        this.data.currentRow = cell.Tile.Data.currentRow;
-    }
-
     public void SetDebug()
     {
-        this.debugOriPos.text = $"T {this.Data.originColumn} {this.Data.originRow}";
+        this.debugOriPos.text = $"T {this.Data.column} {this.Data.row}";
         this.debugCurPos.text = $"{this.Data.id}";
     }
 
@@ -58,31 +52,19 @@ public class Tile : TruongMonoBehaviour
 
     public void SetName()
     {
-        this.name = "Tile " + data.currentColumn + " " + data.currentRow;
-    }
-
-    [Button]
-    public void MoveToCell(Cell cell)
-    {
-        SetDataOnMove(cell);
-        SetTransformOnMove(cell);
-    }
-
-    private void SetTransformOnMove(Cell cell)
-    {
-        if (Cells.Instance.CellsShuffling.IsShuffling) return;
-        SetParentToCell(cell);
+        this.name = "Tile " + data.column + " " + data.row;
     }
 
     [Button]
     public void SetTransformAfterShuffled()
     {
-        Cell cell = Cells.Instance.CellsSpawner.GetCell(this.Data.currentColumn, this.Data.currentRow);
-        SetParentToCell(cell);
+        Cell cell = Cells.Instance.CellsSpawner.GetCell(this.Data.column, this.Data.row);
+        SetParent(cell);
     }
 
-    public void SetParentToCell(Cell cell)
+    public void SetParent(Cell cell)
     {
+        if (Cells.Instance.CellsShuffling.IsShuffling) return;
         var thisTransform = this.transform;
         thisTransform.parent = cell.TileSpawner.Holder.transform;
         thisTransform.localPosition = Vector3.zero;

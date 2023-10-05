@@ -9,23 +9,11 @@ public class CellsSwaps : TruongMonoBehaviour
     [SerializeField] private Cell emptyCell;
     public Cell EmptyCell => this.emptyCell;
 
+    private static Cells Cells => Cells.Instance;
+
     public void SetEmptyCell(Cell value)
     {
         this.emptyCell = value;
-    }
-
-    [SerializeField] private Cells cells;
-    public Cells Cells => cells;
-
-    protected override void LoadComponents()
-    {
-        base.LoadComponents();
-        LoadTiles();
-    }
-
-    private void LoadTiles()
-    {
-        this.cells = GetComponentInParent<Cells>();
     }
 
     public void SwapsWithInput(TruongDirection direction)
@@ -89,13 +77,10 @@ public class CellsSwaps : TruongMonoBehaviour
         if (cellCanSwaps == null) return;
         Debug.Log($"Swapping {cellCanSwaps.name} to {EmptyCell.name}");
 
-        cellCanSwaps.MoveTileToCell(EmptyCell);
-        this.EmptyCell.MoveTileToCell(cellCanSwaps);
-
-        var temp = cellCanSwaps.Tile;
+        Tile tileTemp = cellCanSwaps.Tile;
         cellCanSwaps.SetTile(EmptyCell.Tile);
-        this.EmptyCell.SetTile(temp);
-
+        this.EmptyCell.SetTile(tileTemp);
+        
         SetEmptyCell(cellCanSwaps);
     }
 }

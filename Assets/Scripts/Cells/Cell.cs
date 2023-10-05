@@ -44,17 +44,14 @@ public class Cell : TruongMonoBehaviour
         var newTile = go.GetComponent<Tile>();
         newTile.SetData(new TileData
         {
-            currentRow = this.data.row,
-            currentColumn = this.data.column,
-            originRow = this.data.row,
-            originColumn = this.data.column,
+            row = this.data.row,
+            column = this.data.column,
             id = count,
         });
         // tile.SetDebug();
         newTile.SetName();
         newTile.SetModel();
-
-        this.tile = newTile;
+        SetTile(newTile);
     }
 
 
@@ -68,23 +65,14 @@ public class Cell : TruongMonoBehaviour
         this.name = "Cell " + Data.column + " " + Data.row;
     }
 
-    private void SetEmptyTile(Tile t)
-    {
-        t.SetEmpty();
-    }
-
     public void SetTile(Tile value)
     {
         this.tile = value;
+        SetParentOfTile();
     }
 
-    public void MoveTileToCell(Cell cell)
+    public void SetParentOfTile()
     {
-        this.Tile.MoveToCell(cell);
-    }
-
-    public void SetTileTransformAfterShuffled()
-    {
-        this.Tile.SetParentToCell(this);
+        this.Tile.SetParent(this);
     }
 }

@@ -8,11 +8,17 @@ public class CellsShuffling : TruongMonoBehaviour
     public bool IsShuffling => isShuffling;
     [SerializeField] private bool isShuffling;
 
+    protected override void SetVarToDefault()
+    {
+        base.SetVarToDefault();
+        this.isShuffling = false;
+    }
+
     [Button]
     public void Shuffling()
     {
         Shuffle();
-        SetTilesTransformAfterShuffled();
+        SetParentOfTilesAfterShuffled();
     }
 
     private void Shuffle()
@@ -56,9 +62,9 @@ public class CellsShuffling : TruongMonoBehaviour
 
 
     [Button]
-    private void SetTilesTransformAfterShuffled()
+    private void SetParentOfTilesAfterShuffled()
     {
         var cells = Cells.Instance.CellsSpawner.GetCells();
-        cells.ForEach(c => c.SetTileTransformAfterShuffled());
+        cells.ForEach(c => c.SetParentOfTile());
     }
 }

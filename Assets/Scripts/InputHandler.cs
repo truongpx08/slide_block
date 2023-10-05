@@ -8,5 +8,6 @@ public class InputHandler : TruongDragAbstract
     {
         if (value == TruongDirection.None) return;
         PlayGameObjects.Instance.GoCells.CellsSwaps.SwapsWithInput(value);
+        GameOver.Instance.Check();
     }
 }
