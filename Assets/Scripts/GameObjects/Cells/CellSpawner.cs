@@ -10,12 +10,15 @@ public class CellSpawner : TruongSpawner
     [SerializeField] private List<Sprite> sprites;
     public List<Sprite> Sprites => sprites;
     [SerializeField] private int row;
+    public int Row => row;
     [SerializeField] private int column;
     [SerializeField] private float spacing;
+    public float Spacing => spacing;
     [SerializeField] private float top;
+    public float Top => top;
     [SerializeField] private float left;
+    public float Left => left;
     [SerializeField] private int columnAndRow;
-
 
     protected override void SetVarToDefault()
     {
@@ -67,31 +70,22 @@ public class CellSpawner : TruongSpawner
             for (int c = 0; c < columnNumber; c++)
             {
                 var obj = SpawnDefaultObject();
-                SetPosition(obj, r, c);
                 var cell = obj.GetComponent<Cell>();
                 cell.SetData(new CellData()
                 {
                     row = r,
                     column = c,
                 });
+
                 // cell.SetDebug();
+                cell.SetPosition(r, c);
                 cell.AddTile(count);
                 cell.SetName();
-                SetEmptyCell(cell);
+                cell.SetEmptyCell();
 
                 count++;
             }
         }
-    }
-
-
-    private void SetEmptyCell(Cell cell)
-    {
-        if (cell.Data.column != 0 || cell.Data.row != this.row - 1) return;
-        Cells.Instance.CellsSwaps.SetEmptyCell(cell);
-        var tile = cell.TileSpawner.Holder.GetDefaultOrFirstItem().GetComponent<Tile>();
-        tile.SetEmpty();
-        tile.DisableDebug();
     }
 
     private void InitVarToSetPosition()
@@ -102,9 +96,8 @@ public class CellSpawner : TruongSpawner
         this.left = maxWidth / 2;
     }
 
-    private void SetPosition(Transform obj, int r, int c)
+    private void SetPositionCell(Transform obj, int r, int c)
     {
-        obj.transform.position = new Vector3(c * spacing - left, r * -spacing + top, 0);
     }
 
     [Button]

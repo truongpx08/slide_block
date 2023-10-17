@@ -14,7 +14,7 @@ public class PlayController : TruongSingleton<PlayController>
     private void StartGame(int level = 1)
     {
         Cells.Instance.CellsDespawner.DespawnAllObject();
-        Cells.Instance.CellsSpawner.SpawnWithLevel(level);
+        Cells.Instance.CellSpawner.SpawnWithLevel(level);
         Cells.Instance.CellsShuffling.Shuffling();
     }
 }

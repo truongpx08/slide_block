@@ -15,7 +15,7 @@ public class GameOver : TruongSingleton<GameOver>
     public void Check()
     {
         this.isGameOver = true;
-        Cells.Instance.CellsSpawner.GetCells().ForEach(c =>
+        Cells.Instance.CellSpawner.GetCells().ForEach(c =>
         {
             if (c.Data.column != c.Tile.Data.column
                 || c.Data.row != c.Tile.Data.row)

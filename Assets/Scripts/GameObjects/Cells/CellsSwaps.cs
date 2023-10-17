@@ -49,19 +49,19 @@ public class CellsSwaps : TruongMonoBehaviour
             case TruongDirection.None:
                 break;
             case TruongDirection.Top:
-                cell = Cells.CellsSpawner.GetCells().Find(c =>
+                cell = Cells.CellSpawner.GetCells().Find(c =>
                     c.Data.column == EmptyCell.Data.column && c.Data.row + 1 == EmptyCell.Data.row);
                 break;
             case TruongDirection.Bottom:
-                cell = Cells.CellsSpawner.GetCells().Find(c =>
+                cell = Cells.CellSpawner.GetCells().Find(c =>
                     c.Data.column == EmptyCell.Data.column && c.Data.row - 1 == EmptyCell.Data.row);
                 break;
             case TruongDirection.Left:
-                cell = Cells.CellsSpawner.GetCells().Find(c =>
+                cell = Cells.CellSpawner.GetCells().Find(c =>
                     c.Data.column + 1 == EmptyCell.Data.column && c.Data.row == EmptyCell.Data.row);
                 break;
             case TruongDirection.Right:
-                cell = Cells.CellsSpawner.GetCells().Find(c =>
+                cell = Cells.CellSpawner.GetCells().Find(c =>
                     c.Data.column - 1 == EmptyCell.Data.column && c.Data.row == EmptyCell.Data.row);
                 break;
             default:

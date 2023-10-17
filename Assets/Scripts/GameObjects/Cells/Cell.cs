@@ -16,6 +16,8 @@ public class Cell : TruongMonoBehaviour
     public Tile Tile => tile;
     [SerializeField] private Tile tile;
 
+    CellSpawner CellSpawner => Cells.Instance.CellSpawner;
+
     protected override void LoadComponents()
     {
         base.LoadComponents();
@@ -80,5 +82,22 @@ public class Cell : TruongMonoBehaviour
     int GetInstanceIda()
     {
         return this.gameObject.GetInstanceID();
+    }
+
+    [Button]
+    public void SetEmptyCell()
+    {
+        if (Data.column != 0 || Data.row != Cells.Instance.CellSpawner.Row - 1) return;
+        Tile.SetEmpty();
+        Tile.DisableDebug();
+        Cells.Instance.CellsSwaps.SetEmptyCell(this);
+    }
+
+
+    public void SetPosition(int row, int column)
+    {
+        float spacing = CellSpawner.Spacing;
+        this.transform.position =
+            new Vector3(column * spacing - CellSpawner.Left, row * -spacing + CellSpawner.Top, 0);
     }
 }

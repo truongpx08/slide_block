@@ -4,8 +4,8 @@ using UnityEngine;
 
 public class Cells : TruongSingleton<Cells>
 {
-    [SerializeField] private CellSpawner cellsSpawner;
-    public CellSpawner CellsSpawner => cellsSpawner;
+    [SerializeField] private CellSpawner cellSpawner;
+    public CellSpawner CellSpawner => cellSpawner;
     [SerializeField] private CellsSwaps cellsSwaps;
     public CellsSwaps CellsSwaps => cellsSwaps;
     [SerializeField] private CellsShuffling cellsShuffling;
@@ -39,7 +39,7 @@ public class Cells : TruongSingleton<Cells>
 
     private void LoadCellSpawner()
     {
-        this.cellsSpawner = GetComponentInChildren<CellSpawner>();
+        this.cellSpawner = GetComponentInChildren<CellSpawner>();
     }
 
     protected override void SetDontDestroyOnLoad()

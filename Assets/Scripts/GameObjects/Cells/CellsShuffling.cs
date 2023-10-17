@@ -34,7 +34,7 @@ public class CellsShuffling : TruongMonoBehaviour
     {
         this.isShuffling = true;
 
-        List<Cell> cells = Cells.Instance.CellsSpawner.GetCells();
+        List<Cell> cells = Cells.Instance.CellSpawner.GetCells();
         TruongUtils.ShuffleList<Cell>(cells);
 
         foreach (var cell in cells)
@@ -64,7 +64,7 @@ public class CellsShuffling : TruongMonoBehaviour
     [Button]
     private void SetParentOfTilesAfterShuffled()
     {
-        var cells = Cells.Instance.CellsSpawner.GetCells();
+        var cells = Cells.Instance.CellSpawner.GetCells();
         cells.ForEach(c => c.SetParentOfTile());
     }
 }

@@ -58,7 +58,7 @@ public class Tile : TruongMonoBehaviour
     [Button]
     public void SetTransformAfterShuffled()
     {
-        Cell cell = Cells.Instance.CellsSpawner.GetCell(this.Data.column, this.Data.row);
+        Cell cell = Cells.Instance.CellSpawner.GetCell(this.Data.column, this.Data.row);
         SetParent(cell);
     }
 
@@ -72,7 +72,7 @@ public class Tile : TruongMonoBehaviour
 
     public void SetModel()
     {
-        this.model.sprite = Cells.Instance.CellsSpawner.Sprites[this.Data.id];
+        this.model.sprite = Cells.Instance.CellSpawner.Sprites[this.Data.id];
     }
 
     public void DisableDebug()
