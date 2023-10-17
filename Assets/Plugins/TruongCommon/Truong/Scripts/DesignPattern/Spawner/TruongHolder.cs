@@ -27,9 +27,10 @@ public class TruongHolder : TruongGameObject
     }
 
     [Button]
-    public Transform GetAvailableItemForReuse(Transform obj)
+    public Transform GetAvailableItemForReuse(Transform fromPrefab)
     {
-        foreach (var item in items.Where(item => item.name == obj.name && !item.gameObject.activeSelf))
+        foreach (var item in items.Where(item =>
+                     item.GetComponent<TruongId>().Id == fromPrefab.GetInstanceID() && !item.gameObject.activeSelf))
         {
             EnableGo(item);
             return item;
@@ -40,7 +41,7 @@ public class TruongHolder : TruongGameObject
 
     public Transform GetDefaultOrFirstItem()
     {
-        if (this.transform.childCount == 0) return null; 
+        if (this.transform.childCount == 0) return null;
         return this.transform.GetChild(0);
     }
 }

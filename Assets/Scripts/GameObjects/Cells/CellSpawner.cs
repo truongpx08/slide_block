@@ -14,13 +14,27 @@ public class CellSpawner : TruongSpawner
     [SerializeField] private float spacing;
     [SerializeField] private float top;
     [SerializeField] private float left;
+    [SerializeField] private int columnAndRow;
 
 
     protected override void SetVarToDefault()
     {
         base.SetVarToDefault();
         this.spacing = 1.05f;
-        sprites = Resources.LoadAll<Sprite>(TruongPath.GetSpriteInResourcePath("char")).ToList();
+        SetSprites(null);
+    }
+
+    private void SetSpritesWithLevel(int level)
+    {
+        var spriteList = Resources
+            .LoadAll<Sprite>(Path.Combine(TruongPath.GetSpriteInResourcePath(TruongFolderName.LEVEL), level.ToString()))
+            .ToList();
+        SetSprites(spriteList);
+    }
+
+    private void SetSprites(List<Sprite> spriteList)
+    {
+        this.sprites = spriteList;
     }
 
     protected override void SetPrefabNameInResource()
@@ -28,17 +42,29 @@ public class CellSpawner : TruongSpawner
         SetPrefabNameInResource(TruongPrefabName.CELL);
     }
 
-    [Button]
-    public void Spawn(int row, int column)
+    public void SpawnWithLevel(int level)
     {
-        this.row = row;
-        this.column = column;
+        SetSpritesWithLevel(level);
+        SetColumnAndRow(TruongUtils.GetSquareRoot(this.sprites.Count));
+        Spawn(columnAndRow, columnAndRow);
+    }
+
+    private void SetColumnAndRow(int value)
+    {
+        this.columnAndRow = value;
+    }
+
+    [Button]
+    public void Spawn(int rowNumber, int columnNumber)
+    {
+        this.row = rowNumber;
+        this.column = columnNumber;
         InitVarToSetPosition();
         var count = 0;
 
-        for (int r = 0; r < row; r++)
+        for (int r = 0; r < rowNumber; r++)
         {
-            for (int c = 0; c < column; c++)
+            for (int c = 0; c < columnNumber; c++)
             {
                 var obj = SpawnDefaultObject();
                 SetPosition(obj, r, c);

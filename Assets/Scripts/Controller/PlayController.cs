@@ -10,16 +10,11 @@ public class PlayController : TruongSingleton<PlayController>
         SetDontDestroyOnLoad(false);
     }
 
-    protected override void Start()
-    {
-        base.Start();
-        StartGame();
-    }
-
     [Button]
-    private void StartGame()
+    private void StartGame(int level = 1)
     {
-        PlayGameObjects.Instance.GoCells.CellsSpawner.Spawn(5, 5);
+        Cells.Instance.CellsDespawner.DespawnAllObject();
+        Cells.Instance.CellsSpawner.SpawnWithLevel(level);
         Cells.Instance.CellsShuffling.Shuffling();
     }
 }

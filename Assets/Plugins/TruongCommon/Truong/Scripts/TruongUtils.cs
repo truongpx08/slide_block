@@ -4,6 +4,7 @@ using UnityEngine;
 using System;
 using System.Security.Cryptography;
 using System.Text;
+using System.Text.RegularExpressions;
 using Random = UnityEngine.Random;
 
 public abstract class TruongUtils
@@ -159,4 +160,71 @@ public abstract class TruongUtils
     }
 
     #endregion
+
+    public static void PlayParticleSystem(GameObject targetGo)
+    {
+        var list = targetGo.GetComponentsInChildren<ParticleSystem>();
+        if (list == null) return;
+        {
+            if (list.Length == 0) return;
+            foreach (var item in list)
+                item.Play();
+        }
+    }
+
+    public static void StopParticleSystem(GameObject targetGo)
+    {
+        var list = targetGo.GetComponentsInChildren<ParticleSystem>();
+        if (list == null) return;
+        {
+            if (list.Length == 0) return;
+            foreach (var item in list)
+                item.Stop();
+        }
+    }
+
+    public static string GetNumbersFromString(string input)
+    {
+        string pattern = @"\d+";
+        string numbers = "";
+
+        foreach (Match match in Regex.Matches(input, pattern))
+        {
+            numbers += match.Value;
+        }
+
+        return numbers;
+    }
+
+    /// <summary>
+    /// ex: number = 25
+    /// calculate 25 = 5*5
+    /// result = 5
+    /// </summary>
+    /// <param name="number"></param>
+    /// <returns></returns>
+    public static int GetSquareRoot(int number)
+    {
+        for (int i = 1; i <= Math.Sqrt(number); i++)
+        {
+            if (i * i == number)
+            {
+                return i;
+            }
+        }
+
+        return -1;
+    }
+
+    public static void SetNameObject(Transform obj, string prefabName)
+    {
+        obj.name = prefabName;
+    }
+
+    public static void AddIdToObject(int id, Transform obj)
+    {
+        if (obj.GetComponent<TruongId>() != null) return;
+        var c = obj.gameObject.AddComponent<TruongId>();
+        c.SetId(id);
+    }
 }

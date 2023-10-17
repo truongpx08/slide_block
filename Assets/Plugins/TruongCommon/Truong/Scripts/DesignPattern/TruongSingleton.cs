@@ -75,12 +75,12 @@ public abstract class TruongSingleton<T> : TruongChild
             $"There are more than one component inheriting from TruongSingleton.");
     }
 
-    /// <summary>
-    /// Default is false    
-    /// </summary>
-    protected abstract void SetDontDestroyOnLoad();
+    protected virtual void SetDontDestroyOnLoad()
+    {
+        SetDontDestroyOnLoad(false);
+    }
 
-    protected virtual void SetDontDestroyOnLoad(bool value)
+    protected void SetDontDestroyOnLoad(bool value)
     {
         this.dontDestroyOnLoad = value;
     }

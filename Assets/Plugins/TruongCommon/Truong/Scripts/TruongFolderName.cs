@@ -13,4 +13,5 @@ public class TruongFolderName
     public const string SPRITES = "Sprites"; // Contains sprites
 
     public const string TRUONG_COMMON = "TruongCommon";
+    public const string LEVEL = "Level";
 }

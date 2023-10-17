@@ -15,6 +15,7 @@ public abstract class TruongSpawner : TruongChild
     [SerializeField] private TruongHolder holder;
     public TruongHolder Holder => holder;
     [SerializeField] private TruongPrefabs prefabs;
+    public TruongPrefabs Prefabs => prefabs;
 
     protected override void CreateChildren()
     {
@@ -61,20 +62,6 @@ public abstract class TruongSpawner : TruongChild
         return SpawnObjectWithPrefab(prefab);
     }
 
-    [Button]
-    protected void DespawnObject(Transform obj)
-    {
-        if (obj == null) return;
-        obj.gameObject.SetActive(false);
-        OnDespawn(obj);
-    }
-
-    [Button]
-    protected void DespawnAllObject()
-    {
-        holder.Items.ForEach(DespawnObject);
-    }
-
     private Transform SpawnObjectWithPrefab(Transform prefab)
     {
         if (prefab == null)
@@ -90,14 +77,15 @@ public abstract class TruongSpawner : TruongChild
     private Transform InstantiateNewObject(Transform prefab)
     {
         Transform newObj = Instantiate(prefab);
-        newObj.name = prefab.name;
-        holder.AddItem(newObj);
+        TruongUtils.SetNameObject(newObj, prefab.name);
+        AddItemToHolder(newObj);
         ResetTransformObj(newObj);
+        TruongUtils.AddIdToObject(prefab.GetInstanceID(), newObj);
         return newObj;
     }
 
-    protected virtual void OnDespawn(Transform obj)
+    private void AddItemToHolder(Transform newObj)
     {
-        //For override
+        holder.AddItem(newObj);
     }
 }

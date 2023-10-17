@@ -51,7 +51,7 @@ MonoBehaviour:
   data:
     row: 0
     column: 0
-    isTileSwapped: 0
+  tile: {fileID: 0}
 --- !u!1 &1579787898499966361
 GameObject:
   m_ObjectHideFlags: 0

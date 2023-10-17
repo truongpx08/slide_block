@@ -10,6 +10,8 @@ public class Cells : TruongSingleton<Cells>
     public CellsSwaps CellsSwaps => cellsSwaps;
     [SerializeField] private CellsShuffling cellsShuffling;
     public CellsShuffling CellsShuffling => cellsShuffling;
+    [SerializeField] private CellDespawner cellsDespawner;
+    public CellDespawner CellsDespawner => cellsDespawner;
 
     protected override void LoadComponents()
     {
@@ -17,6 +19,12 @@ public class Cells : TruongSingleton<Cells>
         LoadCellSpawner();
         LoadCellMovement();
         LoadCellsShuffle();
+        LoadCellDespawner();
+    }
+
+    private void LoadCellDespawner()
+    {
+        this.cellsDespawner = GetComponentInChildren<CellDespawner>();
     }
 
     private void LoadCellsShuffle()

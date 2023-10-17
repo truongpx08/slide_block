@@ -75,4 +75,10 @@ public class Cell : TruongMonoBehaviour
     {
         this.Tile.SetParent(this);
     }
+
+    [Button]
+    int GetInstanceIda()
+    {
+        return this.gameObject.GetInstanceID();
+    }
 }

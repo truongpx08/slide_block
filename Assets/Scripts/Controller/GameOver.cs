@@ -21,6 +21,12 @@ public class GameOver : TruongSingleton<GameOver>
                 || c.Data.row != c.Tile.Data.row)
                 this.isGameOver = false;
         });
+        OverGame();
+    }
+
+    [Button]
+    private void OverGame()
+    {
         Log();
     }
 
