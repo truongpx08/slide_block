@@ -122,4 +122,9 @@ public abstract class TruongMonoBehaviour : MonoBehaviour
         if (obj != null) return;
         Debug.LogError("object is null");
     }
+
+    protected bool HasComponent<T>()
+    {
+        return GetComponent<T>() != null;
+    }
 }

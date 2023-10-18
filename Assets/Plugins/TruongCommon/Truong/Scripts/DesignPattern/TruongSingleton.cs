@@ -14,19 +14,23 @@ public abstract class TruongSingleton<T> : TruongChild
 
     [SerializeField] private bool dontDestroyOnLoad;
 
-    protected override void Awake()
-    {
-        base.Awake();
-        Initialize();
-    }
-
     protected override void SetVarToDefault()
     {
         base.SetVarToDefault();
         SetDontDestroyOnLoad();
+        AddTruongInitialization();
     }
 
-    private void Initialize()
+    private void AddTruongInitialization()
+    {
+        if (HasComponent<TruongInitialization>()) return;
+        this.gameObject.AddComponent<TruongInitialization>();
+    }
+
+    /// <summary>
+    /// Called from TruongInitialization 
+    /// </summary>
+    public void Initialize()
     {
         SetInstance();
         SetDontDestroyOnLoadObj();
@@ -36,7 +40,7 @@ public abstract class TruongSingleton<T> : TruongChild
     {
         SetDontDestroyOnLoad();
         if (!this.dontDestroyOnLoad || Instance == null) return;
-        DontDestroyOnLoad(gameObject);
+        DontDestroyOnLoad(this.gameObject);
         SetParentTransform();
     }
 
