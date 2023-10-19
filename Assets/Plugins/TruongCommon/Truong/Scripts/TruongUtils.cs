@@ -227,4 +227,9 @@ public abstract class TruongUtils
         var c = obj.gameObject.AddComponent<TruongId>();
         c.SetId(id);
     }
+
+    public static bool IsUnityEditor()
+    {
+        return Application.platform == RuntimePlatform.WindowsEditor;
+    }
 }
