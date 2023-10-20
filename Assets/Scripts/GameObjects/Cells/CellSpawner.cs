@@ -5,74 +5,20 @@ using System.Linq;
 using Sirenix.OdinInspector;
 using UnityEngine;
 
-public class CellSpawner : TruongSpawner
+public class CellSpawner : CellSpawnerAbstract
 {
-    [SerializeField] private List<Sprite> sprites;
-    public List<Sprite> Sprites => sprites;
-    [SerializeField] private int cellsOnEdgeSquare;
-    [SerializeField] private float spacing;
-    [SerializeField] private TruongSquareLayout squareLayout;
-    [SerializeField] private float cellSize;
-    public int CellsOnEdgeSquare => cellsOnEdgeSquare;
-
-    protected override void SetVarToDefault()
-    {
-        base.SetVarToDefault();
-        SetSprites(null);
-        this.spacing = 0.05f;
-    }
-
-    private void SetSpritesWithLevel(int level)
-    {
-        var spriteList = Resources
-            .LoadAll<Sprite>(Path.Combine(TruongPath.GetSpriteInResourcePath(TruongFolderName.LEVEL), level.ToString()))
-            .ToList();
-        SetSprites(spriteList);
-    }
-
-    private void SetSprites(List<Sprite> spriteList)
-    {
-        this.sprites = spriteList;
-    }
-
     protected override void SetPrefabNameInResource()
     {
         SetPrefabNameInResource(TruongPrefabName.CELL);
     }
 
-    public void SpawnWithLevel(int level)
+    protected override void SetSpacing()
     {
-        SetSpritesWithLevel(level);
-        SetCellsOnEdgeSquare(TruongUtils.GetSquareRoot(this.sprites.Count));
-        SetupSquareLayout();
-        SetCellSize();
-        Spawn();
-        SetPositionCells();
+        SetSpacing(0.05f);
     }
 
-    private void SetPositionCells()
-    {
-        this.squareLayout.SetPositionChildren();
-    }
 
-    private void SetCellSize()
-    {
-        this.cellSize = this.squareLayout.CellSize;
-    }
-
-    private void SetupSquareLayout()
-    {
-        this.squareLayout = Holder.GetComponent<TruongSquareLayout>();
-        squareLayout.SetUp(Cells.Instance.CellsPointEdgeSquare, this.CellsOnEdgeSquare, this.spacing);
-    }
-
-    private void SetCellsOnEdgeSquare(int value)
-    {
-        this.cellsOnEdgeSquare = value;
-    }
-
-    [Button]
-    public void Spawn()
+    protected override void Spawn()
     {
         var count = 0;
         for (int rowIndex = 0; rowIndex < this.CellsOnEdgeSquare; rowIndex++)
@@ -96,6 +42,12 @@ public class CellSpawner : TruongSpawner
                 count++;
             }
         }
+    }
+
+    protected override void SetupSquareLayout()
+    {
+        this.squareLayout = Holder.GetComponent<TruongSquareLayout>();
+        squareLayout.SetUp(Cells.Instance.CellsPointEdgeSquare, this.CellsOnEdgeSquare, this.spacing);
     }
 
     [Button]

@@ -1,7 +1,10 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using System.Reflection;
 using Sirenix.OdinInspector;
+using Sirenix.Utilities;
 using UnityEngine;
 
 /// <summary>
@@ -21,17 +24,39 @@ public class TruongInitialization : TruongMonoBehaviour
         // Iterate over all the components attached to the current game object and its children
         foreach (Component item in GetComponents<Component>())
         {
-            // Check if the component is a subclass of TruongSingleton
-            var baseType = item.GetType().BaseType;
-            if (baseType == null) continue;
-            if (!baseType.ToString().Contains("TruongSingleton")) continue;
-
-            // Get the Initialize() method of the base class TruongSingleton using reflection
-            MethodInfo m = baseType.GetMethod("Initialize");
-            if (m == null) continue;
-
-            // Invoke the Initialize() method
-            m.Invoke(item, null);
+            foreach (var baseType in GetBaseTypeList(item))
+            {
+                // Check if the component is a subclass of TruongSingleton
+                if (!baseType.ToString().Contains("TruongSingleton")) continue;
+                InvokeInitialize(item, baseType);
+                return;
+            }
         }
+    }
+
+    private void InvokeInitialize(Component item, Type baseType)
+    {
+        // Get the Initialize() method of the base class TruongSingleton using reflection
+        MethodInfo m = baseType.GetMethod("Initialize");
+        if (m == null) return;
+
+        // Invoke the Initialize() method
+        m.Invoke(item, null);
+    }
+
+    // [Button]
+    public List<Type> GetBaseTypeList(Component component)
+    {
+        List<Type> list = new List<Type>();
+        Type type = component.GetType();
+        for (int count = 0; count < 100; count++)
+        {
+            if (type == null || type.BaseType == typeof(MonoBehaviour)) break;
+            type = type.BaseType;
+            if (type == null) continue;
+            list.Add(type);
+        }
+
+        return list;
     }
 }

@@ -6,10 +6,13 @@ using UnityEngine;
 
 public class TruongSquareLayout : TruongMonoBehaviour
 {
-    [SerializeField] private Transform xHorizontalAxis;
+    [TitleGroup("Input")]
+    [Tooltip(
+        "This point is on the edge of the square. To determine the side length of a square is 2 times the length from the center of the square to the edge")]
+    [SerializeField] private Transform xPointOnEdge;
     [SerializeField] private float spacing;
     [SerializeField] private int cellsOnEdge;
-    [TitleGroup("Debug")]
+    [TitleGroup("Calculations")]
     [SerializeField] private float cellSize;
     public float CellSize => cellSize;
     [SerializeField] private float edge;
@@ -24,7 +27,7 @@ public class TruongSquareLayout : TruongMonoBehaviour
 
     public void SetUp(Transform xHorizontalAxisVar, int cellsOnEdgeValue, float spacingValue)
     {
-        this.xHorizontalAxis = xHorizontalAxisVar;
+        this.xPointOnEdge = xHorizontalAxisVar;
         this.cellsOnEdge = cellsOnEdgeValue;
         this.spacing = spacingValue;
         OnSetUpComplete();
@@ -32,7 +35,7 @@ public class TruongSquareLayout : TruongMonoBehaviour
 
     private void OnSetUpComplete()
     {
-        if (IsNull(this.xHorizontalAxis)) return;
+        if (IsNull(this.xPointOnEdge)) return;
         Calculate();
     }
 
@@ -75,13 +78,13 @@ public class TruongSquareLayout : TruongMonoBehaviour
     private void SetPositionChild(int index, int columnIndex, int rowIndex)
     {
         var child = this.transform.GetChild(index);
-        child.transform.position = new Vector3(columnIndex * (this.cellSize + this.spacing) - this.left,
+        child.transform.localPosition = new Vector3(columnIndex * (this.cellSize + this.spacing) - this.left,
             rowIndex * -(this.cellSize + this.spacing) + this.top, 0);
     }
 
     private void CalculateEdge()
     {
-        var haftEdge = Vector3.Distance(xHorizontalAxis.position, Vector3.zero);
+        var haftEdge = Vector3.Distance(this.xPointOnEdge.position, this.transform.position);
         this.edge = haftEdge * 2;
     }
 

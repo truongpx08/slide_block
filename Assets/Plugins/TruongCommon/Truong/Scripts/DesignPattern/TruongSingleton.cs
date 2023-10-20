@@ -30,8 +30,10 @@ public abstract class TruongSingleton<T> : TruongChild
     /// <summary>
     /// Called from TruongInitialization 
     /// </summary>
+    // [Button]
     public void Initialize()
     {
+        Debug.Log("Init Singleton: " + this.name);
         SetInstance();
         SetDontDestroyOnLoadObj();
     }

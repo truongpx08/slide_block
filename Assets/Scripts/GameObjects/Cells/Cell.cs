@@ -4,19 +4,13 @@ using Sirenix.OdinInspector;
 using TMPro;
 using UnityEngine;
 
-public class Cell : TruongMonoBehaviour
+public class Cell : CellAbstract
 {
-    [SerializeField] private SpriteRenderer model;
     [SerializeField] private TileSpawner tileSpawner;
     public TileSpawner TileSpawner => tileSpawner;
     [SerializeField] private TextMeshPro debugPos;
-
-    [SerializeField] private CellData data;
-    public CellData Data => data;
-
     public Tile Tile => tile;
     [SerializeField] private Tile tile;
-
     CellSpawner CellSpawner => Cells.Instance.CellSpawner;
 
     protected override void LoadComponents()
@@ -24,12 +18,6 @@ public class Cell : TruongMonoBehaviour
         base.LoadComponents();
         LoadTileSpawner();
         LoadPos();
-        LoadModel();
-    }
-
-    private void LoadModel()
-    {
-        this.model = this.transform.Find(TruongConstants.MODEL).GetComponent<SpriteRenderer>();
     }
 
     private void LoadTileSpawner()
@@ -40,11 +28,6 @@ public class Cell : TruongMonoBehaviour
     private void LoadPos()
     {
         this.debugPos = transform.Find("Debug").Find("Pos").GetComponent<TextMeshPro>();
-    }
-
-    public void SetData(CellData cellData)
-    {
-        this.data = cellData;
     }
 
     public void AddTile(int count)
@@ -59,7 +42,7 @@ public class Cell : TruongMonoBehaviour
         });
         // tile.SetDebug();
         newTile.SetName();
-        newTile.SetSize(this.model.size);
+        newTile.SetModel(this.model.size);
         SetTile(newTile);
     }
 
@@ -92,10 +75,5 @@ public class Cell : TruongMonoBehaviour
         Tile.SetEmpty();
         Tile.DisableDebug();
         Cells.Instance.CellsSwaps.SetEmptyCell(this);
-    }
-
-    public void SetSizeModel(float cellSize)
-    {
-        this.model.size = new Vector2 { x = cellSize, y = cellSize };
     }
 }

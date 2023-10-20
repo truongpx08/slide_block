@@ -62,7 +62,7 @@ public class Tile : TruongMonoBehaviour
         SetParent(cell);
     }
 
-    public void SetSize(Vector2 modelSize)
+    public void SetModel(Vector2 modelSize)
     {
         EnableModel();
         SetSpriteModel();
