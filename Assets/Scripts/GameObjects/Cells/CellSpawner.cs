@@ -9,22 +9,17 @@ public class CellSpawner : TruongSpawner
 {
     [SerializeField] private List<Sprite> sprites;
     public List<Sprite> Sprites => sprites;
-    [SerializeField] private int row;
-    public int Row => row;
-    [SerializeField] private int column;
+    [SerializeField] private int cellsOnEdgeSquare;
     [SerializeField] private float spacing;
-    public float Spacing => spacing;
-    [SerializeField] private float top;
-    public float Top => top;
-    [SerializeField] private float left;
-    public float Left => left;
-    [SerializeField] private int columnAndRow;
+    [SerializeField] private TruongSquareLayout squareLayout;
+    [SerializeField] private float cellSize;
+    public int CellsOnEdgeSquare => cellsOnEdgeSquare;
 
     protected override void SetVarToDefault()
     {
         base.SetVarToDefault();
-        this.spacing = 1.05f;
         SetSprites(null);
+        this.spacing = 0.05f;
     }
 
     private void SetSpritesWithLevel(int level)
@@ -48,56 +43,59 @@ public class CellSpawner : TruongSpawner
     public void SpawnWithLevel(int level)
     {
         SetSpritesWithLevel(level);
-        SetColumnAndRow(TruongUtils.GetSquareRoot(this.sprites.Count));
-        Spawn(columnAndRow, columnAndRow);
+        SetCellsOnEdgeSquare(TruongUtils.GetSquareRoot(this.sprites.Count));
+        SetupSquareLayout();
+        SetCellSize();
+        Spawn();
+        SetPositionCells();
     }
 
-    private void SetColumnAndRow(int value)
+    private void SetPositionCells()
     {
-        this.columnAndRow = value;
+        this.squareLayout.SetPositionChildren();
+    }
+
+    private void SetCellSize()
+    {
+        this.cellSize = this.squareLayout.CellSize;
+    }
+
+    private void SetupSquareLayout()
+    {
+        this.squareLayout = Holder.GetComponent<TruongSquareLayout>();
+        squareLayout.SetUp(Cells.Instance.CellsPointEdgeSquare, this.CellsOnEdgeSquare, this.spacing);
+    }
+
+    private void SetCellsOnEdgeSquare(int value)
+    {
+        this.cellsOnEdgeSquare = value;
     }
 
     [Button]
-    public void Spawn(int rowNumber, int columnNumber)
+    public void Spawn()
     {
-        this.row = rowNumber;
-        this.column = columnNumber;
-        InitVarToSetPosition();
         var count = 0;
-
-        for (int r = 0; r < rowNumber; r++)
+        for (int rowIndex = 0; rowIndex < this.CellsOnEdgeSquare; rowIndex++)
         {
-            for (int c = 0; c < columnNumber; c++)
+            for (int columnIndex = 0; columnIndex < this.CellsOnEdgeSquare; columnIndex++)
             {
                 var obj = SpawnDefaultObject();
                 var cell = obj.GetComponent<Cell>();
                 cell.SetData(new CellData()
                 {
-                    row = r,
-                    column = c,
+                    row = rowIndex,
+                    column = columnIndex,
                 });
 
                 // cell.SetDebug();
-                cell.SetPosition(r, c);
-                cell.AddTile(count);
                 cell.SetName();
+                cell.SetSizeModel(this.cellSize);
+                cell.AddTile(count);
                 cell.SetEmptyCell();
 
                 count++;
             }
         }
-    }
-
-    private void InitVarToSetPosition()
-    {
-        float maxHeight = (this.row - 1) * this.spacing;
-        float maxWidth = (this.column - 1) * this.spacing;
-        this.top = maxHeight / 2;
-        this.left = maxWidth / 2;
-    }
-
-    private void SetPositionCell(Transform obj, int r, int c)
-    {
     }
 
     [Button]
@@ -123,7 +121,11 @@ public class CellSpawner : TruongSpawner
     public List<Cell> GetCells()
     {
         var tiles = new List<Cell>();
-        this.Holder.Items.ForEach(i => tiles.Add(i.GetComponent<Cell>()));
+        this.Holder.Items.ForEach(cell =>
+        {
+            if (!cell.gameObject.activeSelf) return;
+            tiles.Add(cell.GetComponent<Cell>());
+        });
         return tiles;
     }
 

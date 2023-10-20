@@ -62,6 +62,13 @@ public class Tile : TruongMonoBehaviour
         SetParent(cell);
     }
 
+    public void SetSize(Vector2 modelSize)
+    {
+        EnableModel();
+        SetSpriteModel();
+        SetSizeModel(modelSize);
+    }
+
     public void SetParent(Cell cell)
     {
         if (Cells.Instance.CellsShuffling.IsShuffling) return;
@@ -70,14 +77,25 @@ public class Tile : TruongMonoBehaviour
         thisTransform.localPosition = Vector3.zero;
     }
 
-    public void SetModel()
+    private void SetSpriteModel()
     {
         this.model.sprite = Cells.Instance.CellSpawner.Sprites[this.Data.id];
+    }
+
+    private void SetSizeModel(Vector2 modelSize)
+    {
+        this.model.size = modelSize;
     }
 
     public void DisableDebug()
     {
         this.debugCurPos.gameObject.SetActive(false);
         this.debugOriPos.gameObject.SetActive(false);
+    }
+
+
+    private void EnableModel()
+    {
+        this.model.gameObject.SetActive(true);
     }
 }

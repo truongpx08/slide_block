@@ -6,6 +6,7 @@ using UnityEngine;
 
 public class Cell : TruongMonoBehaviour
 {
+    [SerializeField] private SpriteRenderer model;
     [SerializeField] private TileSpawner tileSpawner;
     public TileSpawner TileSpawner => tileSpawner;
     [SerializeField] private TextMeshPro debugPos;
@@ -23,6 +24,12 @@ public class Cell : TruongMonoBehaviour
         base.LoadComponents();
         LoadTileSpawner();
         LoadPos();
+        LoadModel();
+    }
+
+    private void LoadModel()
+    {
+        this.model = this.transform.Find(TruongConstants.MODEL).GetComponent<SpriteRenderer>();
     }
 
     private void LoadTileSpawner()
@@ -52,7 +59,7 @@ public class Cell : TruongMonoBehaviour
         });
         // tile.SetDebug();
         newTile.SetName();
-        newTile.SetModel();
+        newTile.SetSize(this.model.size);
         SetTile(newTile);
     }
 
@@ -79,25 +86,16 @@ public class Cell : TruongMonoBehaviour
     }
 
     [Button]
-    int GetInstanceIda()
-    {
-        return this.gameObject.GetInstanceID();
-    }
-
-    [Button]
     public void SetEmptyCell()
     {
-        if (Data.column != 0 || Data.row != Cells.Instance.CellSpawner.Row - 1) return;
+        if (Data.column != 0 || Data.row != Cells.Instance.CellSpawner.CellsOnEdgeSquare - 1) return;
         Tile.SetEmpty();
         Tile.DisableDebug();
         Cells.Instance.CellsSwaps.SetEmptyCell(this);
     }
 
-
-    public void SetPosition(int row, int column)
+    public void SetSizeModel(float cellSize)
     {
-        float spacing = CellSpawner.Spacing;
-        this.transform.position =
-            new Vector3(column * spacing - CellSpawner.Left, row * -spacing + CellSpawner.Top, 0);
+        this.model.size = new Vector2 { x = cellSize, y = cellSize };
     }
 }

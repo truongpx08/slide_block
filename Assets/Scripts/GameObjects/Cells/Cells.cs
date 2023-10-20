@@ -12,6 +12,8 @@ public class Cells : TruongSingleton<Cells>
     public CellsShuffling CellsShuffling => cellsShuffling;
     [SerializeField] private CellDespawner cellsDespawner;
     public CellDespawner CellsDespawner => cellsDespawner;
+    [SerializeField] private Transform cellsPointEdgeSquare;
+    public Transform CellsPointEdgeSquare => cellsPointEdgeSquare;
 
     protected override void LoadComponents()
     {
@@ -20,6 +22,12 @@ public class Cells : TruongSingleton<Cells>
         LoadCellMovement();
         LoadCellsShuffle();
         LoadCellDespawner();
+        LoadCellPointEdgeSquare();
+    }
+
+    private void LoadCellPointEdgeSquare()
+    {
+        this.cellsPointEdgeSquare = this.transform.Find("PointEdgeSquare");
     }
 
     private void LoadCellDespawner()

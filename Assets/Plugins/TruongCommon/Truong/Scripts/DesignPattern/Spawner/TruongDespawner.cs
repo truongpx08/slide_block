@@ -1,9 +1,13 @@
 ﻿using System;
 using System.Collections;
 using System.Collections.Generic;
+using DG.Tweening;
 using Sirenix.OdinInspector;
 using UnityEngine;
 
+/// <summary>
+/// 
+/// </summary>
 public abstract class TruongDespawner : TruongMonoBehaviour
 {
     [SerializeField] private TruongSpawner spawner;
@@ -22,13 +26,6 @@ public abstract class TruongDespawner : TruongMonoBehaviour
     }
 
     [Button]
-    public void DespawnDefaultObject()
-    {
-        var prefab = spawner.Prefabs.GetDefaultPrefab();
-        DespawnObject(prefab);
-    }
-
-    [Button]
     public void DespawnObject(Transform obj)
     {
         if (obj == null) return;
@@ -36,6 +33,15 @@ public abstract class TruongDespawner : TruongMonoBehaviour
         onDespawn?.Invoke(obj);
     }
 
+    [Button]
+    public void DespawnDefaultObject()
+    {
+        var prefab = spawner.Prefabs.GetDefaultPrefab();
+        var item = spawner.Holder.Items.Find(i =>
+            i.GetComponent<TruongId>().Id == prefab.GetInstanceID()
+            && i.gameObject.activeSelf);
+        DespawnObject(item);
+    }
 
     [Button]
     public void DespawnAllObject()

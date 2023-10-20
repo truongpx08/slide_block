@@ -127,4 +127,9 @@ public abstract class TruongMonoBehaviour : MonoBehaviour
     {
         return GetComponent<T>() != null;
     }
+
+    protected bool IsNull(object obj)
+    {
+        return obj == null;
+    }
 }
