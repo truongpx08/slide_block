@@ -95,8 +95,8 @@ public abstract class TruongEasySave<T> : TruongSingleton<T>
         SaveData();
     }
 
-    protected override void SetDontDestroyOnLoad()
-    {
-        SetDontDestroyOnLoad(true);
-    }
+    // protected override void SetDontDestroyOnLoad()
+    // {
+    //     SetDontDestroyOnLoad(true);
+    // }
 }

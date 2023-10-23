@@ -12,12 +12,9 @@ public abstract class TruongSingleton<T> : TruongChild
 {
     public static T Instance { get; private set; }
 
-    [SerializeField] private bool dontDestroyOnLoad;
-
     protected override void SetVarToDefault()
     {
         base.SetVarToDefault();
-        SetDontDestroyOnLoad();
         AddTruongInitialization();
     }
 
@@ -31,26 +28,12 @@ public abstract class TruongSingleton<T> : TruongChild
     /// Called from TruongInitialization 
     /// </summary>
     // [Button]
-    public void Initialize()
+    public void InitializeSingleton()
     {
         Debug.Log("Init Singleton: " + this.name);
         SetInstance();
-        SetDontDestroyOnLoadObj();
     }
 
-    private void SetDontDestroyOnLoadObj()
-    {
-        SetDontDestroyOnLoad();
-        if (!this.dontDestroyOnLoad || Instance == null) return;
-        DontDestroyOnLoad(this.gameObject);
-        SetParentTransform();
-    }
-
-    private void SetParentTransform()
-    {
-        //Don't destroy on load only works on root objects so let's force this transform to be a root object:
-        transform.parent = null;
-    }
 
     // [Button]
     private T DebugInstance()
@@ -79,15 +62,5 @@ public abstract class TruongSingleton<T> : TruongChild
         if (components.Length <= 1) return;
         Debug.LogError(
             $"There are more than one component inheriting from TruongSingleton.");
-    }
-
-    protected virtual void SetDontDestroyOnLoad()
-    {
-        SetDontDestroyOnLoad(false);
-    }
-
-    protected void SetDontDestroyOnLoad(bool value)
-    {
-        this.dontDestroyOnLoad = value;
     }
 }

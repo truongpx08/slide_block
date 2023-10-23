@@ -35,8 +35,8 @@ public abstract class TruongAudioControllerAbstract<T> : TruongSingleton<T>
         bgmSource = GetComponentInChildren<TruongBGM>();
     }
 
-    protected override void SetDontDestroyOnLoad()
-    {
-        SetDontDestroyOnLoad(true);
-    }
+    // protected override void SetDontDestroyOnLoad()
+    // {
+    //     SetDontDestroyOnLoad(true);
+    // }
 }

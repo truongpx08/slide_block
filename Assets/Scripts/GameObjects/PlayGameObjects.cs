@@ -17,9 +17,4 @@ public class PlayGameObjects : TruongSingleton<PlayGameObjects>
     {
         this.goCells = GetComponentInChildren<Cells>();
     }
-
-    protected override void SetDontDestroyOnLoad()
-    {
-        SetDontDestroyOnLoad(false);
-    }
 }

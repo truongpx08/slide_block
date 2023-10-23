@@ -7,10 +7,6 @@ public class GameOver : TruongSingleton<GameOver>
 {
     [SerializeField] private bool isGameOver;
 
-    protected override void SetDontDestroyOnLoad()
-    {
-    }
-
     [Button]
     public void Check()
     {

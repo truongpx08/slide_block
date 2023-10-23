@@ -37,7 +37,7 @@ public class TruongInitialization : TruongMonoBehaviour
     private void InvokeInitialize(Component item, Type baseType)
     {
         // Get the Initialize() method of the base class TruongSingleton using reflection
-        MethodInfo m = baseType.GetMethod("Initialize");
+        MethodInfo m = baseType.GetMethod("InitializeSingleton");
         if (m == null) return;
 
         // Invoke the Initialize() method
