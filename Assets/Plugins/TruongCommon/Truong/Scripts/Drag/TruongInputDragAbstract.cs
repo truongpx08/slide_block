@@ -58,16 +58,13 @@ public abstract class TruongInputDragAbstract : TruongMonoBehaviour
         }
     }
 
-
     private void UpdateDragStartPosition()
     {
-        if (!Input.GetMouseButtonDown(0)) return;
         this.dragStartPosition = Input.mousePosition;
     }
 
     private void UpdateDragEndPosition()
     {
-        if (!Input.GetMouseButtonUp(0)) return;
         this.dragEndPosition = Input.mousePosition;
     }
 
